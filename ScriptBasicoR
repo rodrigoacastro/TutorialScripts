@@ -1,0 +1,1049 @@
+######################################################################
+######################################################################
+####											
+####			   MÉTODOS QUANTITATIVOS PARA				
+####				O ESTUDO DE CORPORA				
+####			     DE TEXTOS MULTILÍNGUES			
+####											
+######################################################################
+######################################################################
+
+# Authors: Arthur de Melo Sá, Rodrigo Araújo e Castro
+
+###################################################################
+#											
+#             			PRELIMINAR			
+#											
+###################################################################
+
+
+rm(list=ls())
+
+#listar objetos na memoria
+ls()
+
+getwd()
+
+
+setwd(dir=choose.dir())
+
+setwd(dir="C:/Users/Rodrigo/Desktop")
+
+
+if(!require("xlsx")) { 		 # se este pacote nao estiver instalado
+	install.packages("xlsx") # instalar
+	require("xlsx")			 # e carregar
+} else {					 # se tiver o pacote
+	require("xlsx")			 # carregar
+}
+
+
+require(xlsx)
+library(xlsx)
+
+
+#save.image(file=choose.files())
+## Salvar o script pessoal dentro do mesmo diretório da imagem
+
+
+
+###################################################################
+#											
+#                     		VETORES			
+#											
+###################################################################
+
+
+#Criar vetores:
+tradutores <- c("Paula","Roberto","Vanessa","Oséias","José")
+idades <- c(35,54,19,62,43)
+sexo <- c("F","M","F","M","M")
+orações <- c(4567,1235,7894,4789,1459)
+publicada <- c(T,T,F,T,F)
+
+
+#Acessar elementos do vetor:
+tradutores[4]
+idades[4]
+sexo[1:3]
+orações[c(2,5)]
+length(publicada)
+publicada[length(publicada)]
+tradutores[length(tradutores)]
+
+
+#Trabalhando com os vetores:
+class(tradutores)
+class(idades)
+class(sexo)
+sexo <- as.factor(sexo)
+is.factor(sexo)
+is.character(sexo)
+
+class(publicada)
+
+mode(tradutores)
+mode(publicada)
+mode(sexo)
+
+length(idades)
+
+str(idades)
+str(sexo)
+
+sort(idades)
+sort(tradutores)
+
+sort(idades,decreasing=TRUE)
+
+#
+#ls()
+#
+
+decresc = sort(idades,decreasing=TRUE)
+
+##
+rm(decresc)
+#ls()
+##
+
+summary(idades)
+summary(orações)
+summary(sexo)
+summary(publicada)
+
+
+#Operações básicas:
+mean(idades)
+mean(orações)
+mean(tradutores)
+
+median(idades)
+median(orações)
+median(tradutores)
+
+sum(orações)
+sum(idades)
+
+max(idades)
+min(orações)
+
+range(idades)
+range(orações)
+
+diff(range(idades))	##Amplitude
+diff(range(orações))	##Amplitude
+
+max(idades)-min(idades)
+max(orações)-min(orações)
+
+prod(idades)
+prod(orações)
+
+
+#Adicionar elementos ao vetor:
+tradutores1 <- c("Paula","Roberto","Vanessa","Oséias","José",88)
+tradutores1
+
+tradutores2 <- c(tradutores,88)
+tradutores2
+
+tradutores3 <- c(tradutores, c(77,88,99))
+tradutores3
+
+tradutores4 <- c(tradutores, c("Juca","Adonirão","Zulmira"))
+tradutores4
+
+tradutores5 <- c(tradutores,tradutores2)
+tradutores5
+
+#Remover elementos do vetor:
+tradutores6 <- tradutores2[-6]
+tradutores6
+
+tradutores7 <- tradutores3[-c(6:8)]
+tradutores7
+
+###################################################################
+#											
+#             			MATRIZES			
+#											
+###################################################################
+
+
+#Criar vetores:
+dados1 <- c(seq(1,11,by=2))
+dados1
+
+dados2 <- c(seq(300,200,by=-20))
+dados2
+
+
+#Combinar os vetores:
+matriz1 <- cbind(dados1,dados2)
+matriz1
+
+matriz2 <- rbind(dados1,dados2)
+matriz2
+
+matriz3 <- t(matriz1)
+matriz3
+
+
+#Acessar elementos da matriz:
+matriz1[3,]
+matriz1[,2]
+
+matriz1[3,1]
+matriz1[4,3]
+matriz1[3,2]
+
+matriz1[2:5,]
+matriz1[2:5,2]
+
+
+#Adicionar uma coluna à matriz:
+dados3 <- c(rep(1:3,each=2))
+dados3
+
+matriz3 <- cbind(matriz1,dados3)
+matriz3
+
+
+#Adicionar uma linha à matriz:
+dados4 <- c(5:7)
+dados4
+
+matriz4 <- rbind(matriz3,dados4)
+matriz4
+
+matriz4a <- rbind(matriz3,c(5:7))
+matriz4a
+
+#Trabalhando com a matriz:
+class(matriz4)
+is.matrix(matriz4)
+
+mode(matriz4)
+
+length(matriz4)
+length(matriz4[,2])
+length(matriz4[2,])
+
+dim(matriz4)
+
+str(matriz4)
+
+summary(matriz4)
+summary(t(matriz4))
+
+mean(matriz4)
+mean(matriz4[,3])
+mean(matriz4[5,])
+
+colMeans(matriz4)
+rowMeans(matriz4)
+
+colMeans(matriz4[,1:2])
+rowMeans(matriz4[1:3,])
+rowMeans(matriz4[,1:2])
+
+median(matriz4)
+
+mediana <- sort(matriz4)
+mediana
+length(mediana)
+mediana[11]
+
+median(matriz4[,1])
+median(matriz4[6,])
+
+sort(matriz4[,1])
+
+sum(matriz4)
+sum(matriz4[,2])
+sum(matriz4[4,])
+
+colSums(matriz4)
+rowSums(matriz4)
+
+colSums(matriz4[,2:3])
+rowSums(matriz4[4:6,])
+
+max(matriz4)
+max(matriz4[,2])
+max(matriz4[,1])
+
+min(matriz4)
+min(matriz4[,2])
+
+range(matriz4)				##Alcance
+diff(range(matriz4))		##Amplitude
+
+max(matriz4)-min(matriz4)
+
+range(matriz4[,2])			##Alcance
+diff(range(matriz4[,2]))	##Amplitude
+
+prod(matriz4)
+prod(matriz4[3,])
+
+which.max(matriz4)
+matriz4[8]
+
+which.min(matriz4)
+matriz4[1]
+
+which.max(matriz4[,1])
+which.min(matriz4[5,])
+
+
+
+###################################################################
+#											
+#                 		DATAFRAMES			
+#											
+###################################################################
+
+
+#Criar um dataframe:
+tradutores <- c("Paula","Roberto","Vanessa","Oséias","José")
+
+idades <- c(35,54,20,62,43)
+
+sexo <- c("F","M","F","M","M")
+class(sexo)
+sexo <- as.factor(sexo)
+is.factor(sexo)
+
+orações <- c(4567,1235,7894,4789,1459)
+
+publicada <- c(T,T,F,T,F)
+
+info <- data.frame(tradutores,idades,sexo,orações,publicada,stringsAsFactors = F)
+info
+
+#Conferir a estrutura do dataframe:
+class(info)
+is.data.frame(info)
+is.matrix(info)
+
+mode(info)
+
+class(info$idades)
+class(info$sexo)
+class(info$tradutores)
+
+mode(info$publicada)
+mode(info$orações)
+
+length(info)
+
+str(info)
+
+summary(info)
+summary(info$idades)
+summary(info$publicada)
+
+
+#Acessar os elementos do dataframe:
+info$idades
+info$tradutores
+
+info$idades[4]
+info$tradutores[1:3]
+
+
+#Adicionar um vetor ao dataframe:
+data <- c("1984","2008",NA,"1995",NA)
+data
+
+info2 <- data.frame(info,data,stringsAsFactors = F)
+info2
+
+is.na(info2)
+#is.factor()
+
+info3 <- !is.na(info2)
+info3
+
+
+#Remover um vetor do dataframe:
+info4 <- info2[-5]
+info4
+
+
+#Rotular linhas e colunas:
+colnames(info4) <- c("TRADUTOR","IDADE","SEXO","ORAÇÕES","PUBLICAÇÃO")
+info4
+
+names(info4) <- c("TRADUTOR","IDADE","SEXO","ORAÇÕES","PUBLICAÇÃO")
+info4
+
+rownames(info4) <- c("Paula","Roberto","Vanessa","Oséias","José")
+info4
+
+info5 <- info4[-1]
+info5
+
+rownames(info5)
+colnames(info5)
+
+
+#Operações básicas:
+mean(info5$IDADE)
+mean(info5$ORAÇÕES)
+mean(info5$PUBLICAÇÃO)
+
+info5$PUBLICAÇÃO <- as.factor(info5$PUBLICAÇÃO)
+is.factor(info5$PUBLICAÇÃO)
+
+str(info5$PUBLICAÇÃO)
+summary(info5$PUBLICAÇÃO)
+
+median(info5$IDADE)
+median(info5$ORAÇÕES)
+
+sum(info5$ORAÇÕES)
+
+max(info5$IDADE)
+min(info5$IDADE)
+
+range(info5$IDADE)
+
+diff(range(info5$IDADE))	##Amplitude
+
+max(info5$IDADE)-min(info5$IDADE)
+
+prod(info5$ORAÇÕES)
+
+info5$ORAÇÕES[which.max(info5$IDADE)]
+info5$ORAÇÕES[4]
+
+info5$SEXO[which.min(info5$ORAÇÕES)]
+
+rownames(info5)[which.min(info5$PUBLICAÇÃO)]
+
+pos <- which.min(info5$PUBLICAÇÃO)
+pos
+
+rownames(info5)[pos]
+
+info5$PUBLICAÇÃO[info5$IDADE > 43]
+info5$ORAÇÕES[info5$IDADE < 43]
+info5$SEXO[info5$IDADE <= 43]
+
+rownames(info5)[info5$IDADE >= 43]
+rownames(info5)[info5$IDADE == 43]
+rownames(info5)[info5$IDADE != 43]
+
+
+
+###################################################################
+#											
+#           DATAFRAMES, TABELAS E GRÁFICOS	
+#											
+###################################################################
+
+
+#Importar um arquivo como dataframe:
+require(xlsx)
+
+rm(list=ls())
+
+ls()
+
+getwd()
+
+processos <- read.xlsx("bancobliss2.xlsx", 
+				sheetIndex=1,
+				startRow=1,
+				colIndex=1:9,
+				header=TRUE,
+				stringsAsFactors=FALSE)
+processos
+
+class(processos)
+
+str(processos)
+
+mode(processos)
+
+#Visualizar o dataframe:
+processos[1:3,]
+processos[,2:4]
+
+processos[3,2:4]
+processos[3,4]
+
+processos["negative"]
+
+processos$negative
+
+processos[1,"negative"]
+
+processos$negative[1:5]
+
+head(processos)
+head(processos,6)
+
+tail(processos)
+tail(processos,6)
+
+processos2 <- edit(processos)	#não salva as alterações
+fix(processos)	#salva as alterações
+
+dimnames(processos)
+
+rownames(processos)
+colnames(processos)
+
+rownames(processos)[processos$traducao == "ORIGINAL"]
+rownames(processos)[processos$traducao == "ESPANHOL"]
+
+rownames(processos)[processos$traducao != "PORTUGUES"]
+
+
+#Verificar o dataframe:
+is.vector(processos$traducao)
+
+str(processos)
+
+processos$traducao <- as.factor(processos$traducao)
+is.factor(processos$traducao)
+
+class(processos$traducao)
+
+processos$TEXTO <- as.factor(processos$TEXTO)
+
+str(processos)
+
+mode(processos)
+
+summary(processos)
+
+
+#Trabalhar com o dataframe:
+
+# CRIANDO coluna "publicado"
+publicado = c(rep("SIM",5),rep("NAO",4),rep("SIM",2))
+
+# transformando vetor em fator
+publicado = as.factor(publicado)
+
+# CRIANDO coluna "1a_edicao"
+prim_edicao = c(rep("NAO",2),rep("SIM",7),rep("NAO",2))
+
+# atualizando objeto com coluna logica
+processos = cbind(processos[,1:2],publicado,prim_edicao,processos[,3:9])
+
+# Analises
+
+processos[(processos$traducao == "ESPANHOL") &
+		(processos$publicado == "NAO"),]
+
+processos[(processos$traducao == "PORTUGUES") &
+		(processos$publicado == "SIM"),]
+
+processos$traducao == "ESPANHOL"
+
+processos$publicado == "SIM"
+
+processos$publicado  != "SIM"
+
+processos[(processos$publicado != "SIM"),"TEXTO"]
+
+
+#Separar o conjunto de dados: FUNÇÃO split()
+publicacao <- split(processos,processos$publicado)
+publicacao
+
+publicacao$NAO
+
+mode(publicacao)
+
+class(publicacao)
+
+publicacao [[1]]
+publicacao [[1]][1:5,]
+
+tipo_publicacao <- publicacao[[1]]
+
+tipo_publicacao
+
+class(tipo_publicacao)
+
+
+#Selecionar um subconjunto dos dados: FUNÇÃO subset()
+subconjunto1  <- subset(processos, traducao == "PORTUGUES", 
+				select=c(traducao,publicado))
+subconjunto1
+
+subconjunto2 <- subset(processos, 
+				traducao == "ESPANHOL" & publicado == "SIM", 
+				select=c(traducao,publicado))
+
+subconjunto2
+
+
+#Exportar o conjunto de dados:
+	#Crie a pasta "Resultados" no seu diretório
+
+write.xlsx(publicacao[[1]],"Resultados\\Publicacao1.xlsx",col.names=TRUE,row.names=TRUE)
+
+write.table(publicacao[[1]],"Resultados\\Publicacao2.txt",sep=",",col.names=TRUE,row.names=TRUE)
+
+write.csv(publicacao[[1]],"Resultados\\Publicacao1.csv",col.names=TRUE,row.names=TRUE)
+
+write.csv2(publicacao[[1]],"Resultados\\Publicacao2.csv",col.names=TRUE,row.names=TRUE)
+
+
+#Criar uma tabela de contingência com os dados de UMA SÓ coluna do dataframe:
+tabela_publicado <- table(processos$publicado)
+tabela_publicado
+
+class(tabela_publicado)
+
+mode(tabela_publicado)
+
+str(tabela_publicado)
+
+summary(tabela_publicado)
+
+
+tabela_traducao <- table(processos$traducao)
+tabela_traducao
+
+str(tabela_traducao)
+
+summary(tabela_traducao)
+
+
+#Criar uma tabela de contingência com os dados de DUAS colunas do dataframe:
+tabela_publicado_traducao <- table(processos$publicado,processos$traducao)
+tabela_publicado_traducao
+
+str(tabela_publicado_traducao)
+
+summary(tabela_publicado_traducao)
+
+tabela_publicado_prim_edicao <- table(processos$publicado,processos$prim_edicao)
+tabela_publicado_prim_edicao
+
+tabela_publicado_prim_edicao2 <- table(publicado=processos$publicado,prim_edicao=processos$prim_edicao)
+tabela_publicado_prim_edicao2 
+
+str(tabela_publicado_prim_edicao)
+
+summary(tabela_publicado_prim_edicao)
+
+#Criar uma tabela de contingência com os dados de TRÊS colunas do dataframe:
+tabela_TRES <- table(	processos$traducao,
+				processos$publicado,
+				processos$prim_edicao,
+					dnn = c("Translation",
+						"Published",
+						"First Edition")
+			  )
+tabela_TRES
+
+str(tabela_TRES)
+
+summary(tabela_TRES)
+
+
+tabela_TRESa <- ftable(processos$traducao,processos$publicado,processos$prim_edicao,
+				dnn = c("Translation","Published","First Edition"))
+tabela_TRESa
+
+str(tabela_TRESa)
+
+summary(tabela_TRESa)
+
+
+#Criar uma tabela de frequências:
+tabela_frequencias1 <- prop.table(table(processos$traducao))
+tabela_frequencias1
+
+
+#Criar uma tabela de frequências relativas:
+tabela_frequencias2 <- prop.table(table(processos$traducao,
+						  processos$publicado),
+							margin=1)
+tabela_frequencias2
+
+
+tabela_frequencias2b <- prop.table(table(processos$traducao,
+						  processos$publicado),
+							margin=2)
+tabela_frequencias2b
+
+colSums(tabela_frequencias2b)
+
+
+tabela_frequencias3 <- prop.table(ftable(processos$traducao,
+						   processos$publicado,
+						   processos$prim_edicao,
+				dnn = c("Translation",
+					"Published",
+					"First Edition"))	,margin=2)
+tabela_frequencias3
+
+colSums(tabela_frequencias3)
+
+
+tabela_frequencias3b <- prop.table(ftable(processos$traducao,
+						   processos$publicado,
+						   processos$prim_edicao,
+				dnn = c("Translation",
+					"Published",
+					"First Edition"))	,margin=1)
+tabela_frequencias3b
+
+colSums(tabela_frequencias3)
+
+
+
+#Criar gráficos para representar os fatores:
+
+##Dispersão:
+plot(tabela_publicado)
+
+plot(tabela_publicado,type="p")
+plot(tabela_publicado,type="l")
+plot(tabela_publicado,type="b")
+plot(tabela_publicado,type="c")
+plot(tabela_publicado,type="o")
+plot(tabela_publicado,type="h")
+plot(tabela_publicado,type="s")
+
+plot(tabela_publicado, type="p", pch="#")
+
+plot(tabela_publicado,type="p",
+	col=c("green","red","blue","yellow","purple","magenta"))
+
+plot(tabela_publicado,type="h",
+	col=c("green","red","blue","yellow","purple","magenta"))
+
+colors()
+
+plot(tabela_publicado,type="p",
+	col=c("green","red","blue","yellow","purple","magenta"),
+	main="GRÁFICO DE DISPERSÃO",
+	sub="PUBLICACAO",
+	xlab="Publicacao",
+	ylab="Ocorrências"
+	)
+
+#Exportar os gráficos!!!
+
+
+##Pizza:
+pie(tabela_publicado)
+
+dev.new()
+pie(tabela_traducao)
+dev.off()
+
+dev.new()
+
+tabela_prim_edicao = table(processos$prim_edicao)
+pie(tabela_prim_edicao, main="gráfico de setores (pizza)")
+
+dev.new()
+par(mfrow=c(2,2))
+pie(tabela_prim_edicao)
+pie(tabela_prim_edicao)
+pie(tabela_prim_edicao)
+
+par(mfrow=c(1,1))
+dev.off()
+
+#Exportar os gráficos!!!
+
+
+##Barras:
+	#Essa função não aceita objetos da classe "factor"
+	#Podemos fornecer um objeto da classe "tabela"
+dev.new()
+barplot(tabela_publicado)
+
+dev.new()
+barplot(tabela_publicado, col=c("green","red"))
+
+dev.new()
+barplot(tabela_traducao,
+		main="Gráfico de barras",
+		col=c("green","red","yellow","blue"),
+		names=c("GM","VMSC","VSD"),
+		xlab="Tipo de verbo",
+		ylab="Número de ocorrências",
+		cex.names=0.75,					#tamanho das colunas
+		cex.lab=2,						#tamanho dos eixos
+		)
+
+dev.new()
+barplot(tabela_publicado,
+		legend=rownames(tabela_publicado),
+		col=c("green","red","yellow","blue"),
+		beside=TRUE,
+		offset=TRUE
+		)
+
+dev.new()
+barplot(tabela_prim_edicao,
+		legend=rownames(tabela_publicado),
+		col=c("green","red","yellow","blue"),
+		beside=TRUE,
+		offset=TRUE,
+		horiz=TRUE
+		)
+
+#Exportar os gráficos!!!
+
+
+#########################################
+#Importar um novo arquivo como dataframe:
+bliss <- read.csv("bancobliss.csv", sep=";")
+bliss
+
+class(bliss)
+
+mode(bliss)
+
+str(bliss)
+
+
+install.packages("psych")
+require(psych)
+
+
+#Selecionar as colunas "Words" e "Sentences",
+#	agrupadas por sistema linguístico: FUNÇÃO split()
+words_system <- split(bliss$words,bliss$traducao)
+words_system
+
+class(words_system)
+
+mode(words_system)
+
+sentences_system <- split(bliss$sentences,bliss$traducao)
+sentences_system
+
+class(sentences_system)
+
+mode(sentences_system)
+
+
+#Descrever as variáveis "Words" e "Sentences": FUNÇÃO describeBy()
+words <- describeBy(bliss$words,bliss$traducao)   ; words
+sentences <- describeBy(bliss$sentence,bliss$traducao)   ; sentences
+
+
+#Resumir as variáveis "Words" e " Sentences"
+#	por sistema linguístico: FUNÇÃO aggregate()
+word.sum <- aggregate(bliss$words,
+		by=list(bliss$traducao),
+            FUN=summary)
+word.sum 
+
+
+sentence.sum <- aggregate(bliss$sentence,
+			by=list(bliss$traducao),
+			FUN=summary)
+sentence.sum
+
+
+#Criar um dataframe com a média e o desvio-padrão das variáveis
+#	"Words" e "Sentences" para a tradução em PORTUGUÊS:
+portugues <- words$PORTUGUES[3:4] 
+portugues
+
+
+portugues <- rbind(portugues,sentences$PORTUGUES[3:4])
+portugues 
+
+
+portugues <- data.frame(c("words","sentences"),portugues)
+portugues
+names(portugues) <- c("Variável","Media","Desvio-Padrão")
+portugues
+
+
+class(portugues)
+
+mode(portugues)
+
+
+#Criar um dataframe com a média e o desvio-padrão das variáveis
+#	"Words" e "Sentences" para a tradução em ESPANHOL:
+espanhol <- words$ESPANHOL[3:4]
+
+espanhol <- rbind(espanhol,sentences$ESPANHOL[3:4])
+
+espanhol <- data.frame(c("words","sentences"),espanhol)
+
+names(espanhol) <- names(portugues)
+
+espanhol
+
+
+#Comparar as traduções por meio de barras de erro: FUNÇÃO error.bars()
+bliss_portugues <- subset(bliss, bliss$traducao=="PORTUGUES")
+bliss_portugues
+
+bliss_espanhol <- subset(bliss, bliss$traducao=="ESPANHOL")
+bliss_espanhol
+
+words_bliss <- data.frame(bliss_portugues$words,bliss.espanhol$words)
+words_bliss
+
+names(words_bliss) <- c("Portugues","Espanhol")
+words_bliss
+
+class(words_bliss)
+
+#Criando o gráfico:
+error.bars(words_bliss,
+          xlab="Tradução", ylab="Número de palavras", bar=TRUE)
+
+#Personalizando o gráfico:
+error.bars(words_bliss, xlab="Tradução", ylab="Número de palavras", 
+          bar=TRUE, main="Intervalos de 95% de confiança", arrow.len=0.2)
+
+
+#Criar gráficos gerais:
+
+##Dispersão:
+plot(words_bliss$Portugues)
+
+plot(words_bliss$Portugues,type="p")
+plot(words_bliss$Portugues,type="l")
+plot(words_bliss$Portugues,type="b")
+plot(words_bliss$Portugues,type="c")
+plot(words_bliss$Portugues,type="o")
+plot(words_bliss$Portugues,type="h")
+plot(words_bliss$Portugues,type="s")
+
+plot(words_bliss$Portugues, type="p", pch="#")
+
+plot(words_bliss$Portugues,type="p",
+	col=c("green","red","blue","purple","magenta"))
+plot(words_bliss$Portugues,type="h",
+	col=c("green","red","blue","purple","magenta"))
+
+plot(words_bliss$Portugues,type="p",
+	col=c("green","red","blue","purple","magenta"),
+	main="GRÁFICO DE DISPERSÃO",
+	sub="NÚMERO DE PALAVRA",
+	xlab="Tradução",
+	ylab="Número de palavras"
+	)
+
+#Exportar os gráficos!!!
+
+
+##Pizza:
+positive_negative_portugues <- cbind(bliss$positive[7:11],bliss$negative[7:11])
+colnames(positive_negative_portugues) <- c("positive","negative")
+positive_negative_portugues
+
+class(positive_negative_portugues)
+
+mode(positive_negative_portugues)
+
+
+media_pos_neg <- colMeans(positive_negative_portugues)
+media_pos_neg
+
+proportions <- round(prop.table(media_pos_neg),2)
+proportions
+
+dev.new()
+pie(media_pos_neg, main="gráfico de setores (pizza)",
+		labels=c("Positive - 87%","Negative - 13%"),
+		col=c("yellow","white"),
+		border=NA,
+		init.angle=20)
+
+#Exportar os gráficos!!!
+
+
+##Barras:
+dev.new()
+barplot(positive_negative_portugues)
+
+dev.new()
+barplot(positive_negative_portugues, col=c("green","red","yellow","blue","purple"))
+
+dev.new()
+barplot(positive_negative_portugues,
+		beside=TRUE,
+		main="Gráfico de barras",
+		col=c("green","red","yellow","blue","purple"),
+		legend=c("ACC","EV","EVS","JC","MS"),
+		names=c("Positive","Negative"),
+		xlab="Tipo de verbo",
+		ylab="Número de ocorrências"
+		)
+
+#Exportar os gráficos!!!
+
+
+
+###################################################################
+#											
+#           	  	FUNÇÕES		
+#											
+###################################################################
+
+
+#Funções que já vimos até agora:
+mean()
+median()
+min()
+max()
+diff(range())
+
+
+#Criar uma função que realiza todas essas operações:
+
+my_function <- function(objeto)
+{
+	my_mean	 <-	mean(objeto)
+	my_median <- median(objeto)
+	my_min	 <-	min(objeto)
+	my_max	 <-	max(objeto)
+	my_amplitude <-	diff(range(objeto))
+	out		 <-	c(my_mean, my_median, my_min, my_max, my_amplitude)
+	names(out)	 <-	c("Média", "Mediana", "Mínimo", "Máximo", "Amplitude")
+	out
+}
+
+
+#Aplicar a função sobre um objeto qualquer:
+x <- sample(89:4631)
+
+my_function(x)
+
+
+#Abrir um novo script:
+#	(é possível abrir vários scripts na mesma tela do R)
+#
+#		1) Copie e cole a função acima nesse novo script;
+#		2) Salve esse script no seu diretório com o nome "my_script.R"
+#		3) Feche esse script que você acabou de salvar.
+
+
+#Abrir um script em plano de fundo:
+source("my_script.R")
+
+ls()
+
+
+#Conferir se a função criada está funcionando:
+my_function
+
+my_function(x)
+
+#######################################################
