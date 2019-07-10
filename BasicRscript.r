@@ -21,12 +21,13 @@
 
 # loads and installs packages
 
+# openxlsx does NOT depend on Java, like other packages
 
-if(!require("xlsx")) { 		 # if this package is not installed
-	install.packages("xlsx") # install it
-	require("xlsx")			 # and load it
+if(!require("openxlsx")) { 		 # if this package is not installed
+	install.packages("openxlsx") # install it
+	require("openxlsx")			 # and load it
 } else {					 # if it is loaded
-	require("xlsx")			 # load it
+	require("openxlsx")			 # load it
 }
 
 # same as p_load() from pacman package
