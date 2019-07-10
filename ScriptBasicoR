@@ -30,11 +30,11 @@ setwd(dir=choose.dir())
 setwd(dir="C:/Users/Rodrigo/Desktop")
 
 
-if(!require("xlsx")) { 		 # se este pacote nao estiver instalado
-	install.packages("xlsx") # instalar
-	require("xlsx")			 # e carregar
+if(!require("openxlsx")) { 		 # se este pacote nao estiver instalado
+	install.packages("openxlsx") # instalar
+	require("openxlsx")			 # e carregar
 } else {					 # se tiver o pacote
-	require("xlsx")			 # carregar
+	require("openxlsx")			 # carregar
 }
 
 
